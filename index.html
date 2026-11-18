@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Tailor</title>
+
+<style>
+:root {
+  --bg: #fff5fa;
+  --surface: white;
+  --text: #25213b;
+  --muted: #706b83;
+  --pink: #d94f91;
+  --blue: #6d8fe8;
+  --line: #f0cfe0;
+}
+
+body.dark {
+  --bg: #15182b;
+  --surface: #222743;
+  --text: #f8f2ff;
+  --muted: #c1c5df;
+  --pink: #f18abd;
+  --blue: #8eabff;
+  --line: #41496e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  padding: 15px;
+  box-shadow: 0 3px 12px #0001;
+}
+
+.nav {
+  max-width: 1150px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-wordmark {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(100deg,var(--pink),var(--blue));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.brand-wordmark small {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+.brand-icons {
+  color: var(--pink);
+}
+
+.brand-icons svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.scissors { color: var(--blue); }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.links a:hover { color: var(--pink); }
+
+button, .btn {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(110deg,var(--pink),var(--blue));
+  color: white;
+  font-weight: bold;
+}
+
+.theme {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.hero {
+  max-width: 1150px;
+  margin: auto;
+  padding: 60px 22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 55px;
+  color: var(--pink);
+}
+
+.hero p {
+  color: var(--muted);
+  font: 17px/1.7 Arial;
+}
+
+.hero img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 150px 150px 15px 15px;
+}
+
+section {
+  max-width: 1150px;
+  margin: auto;
+  padding: 50px 22px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 35px;
+}
+
+.section-title p {
+  color: var(--muted);
+  font-family: Arial;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+
+.service, .panel, .dress {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px #0001;
+}
+
+.service {
+  padding: 23px;
+}
+
+.service h3 { color: var(--pink); }
+
+.service p, .dress p {
+  color: var(--muted);
+  font: 15px/1.6 Arial;
+}
+
+.dress img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+}
+
+.dress div { padding: 15px; }
+
+.panel { padding: 25px; }
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.field { margin-bottom: 15px; }
+
+.field label {
+  display: block;
+  margin-bottom: 7px;
+  font-family: Arial;
+  font-weight: bold;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.note {
+  color: var(--muted);
+  font: 13px/1.5 Arial;
+}
+
+.form-msg {
+  color: var(--pink);
+  font-family: Arial;
+}
+
+footer {
+  background: linear-gradient(110deg,#39233f,#253c67);
+  color: white;
+  text-align: center;
+  padding: 30px;
+  font-family: Arial;
+}
+
+@media(max-width:800px) {
+  .hero { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2,1fr); }
+  .two { grid-template-columns: 1fr; }
+}
+
+@media(max-width:540px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 40px; }
+  .links { gap: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav class="nav">
+
+<a class="brand" href="#home">
+
+<span class="brand-icons">
+<!-- Sewing machine icon -->
+<svg viewBox="0 0 48 48">
+<path d="M7 36h34M11 35V16h10l5 6h9v13M21 16V9h11l4 7M26 22v-5h9M15 35V25h9v10"/>
+<circle cx="15" cy="20" r="2"/>
+</svg>
+</span>
+
+<span class="brand-wordmark">
+Fashion Tailor
+<small>Custom Boutique</small>
+</span>
+
+<span class="brand-icons scissors">
+<!-- Scissors icon -->
+<svg viewBox="0 0 48 48">
+<circle cx="11" cy="34" r="6"/>
+<circle cx="11" cy="14" r="6"/>
+<path d="M16 18 39 39M16 30 39 9"/>
+</svg>
+</span>
+
+</a>
+
+<div class="links">
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#gallery">Gallery</a>
+<a href="#order">Online Order</a>
+<a href="#contact">Contact</a>
+<a href="#account">Login / Register</a>
+</div>
+
+<button class="theme" onclick="toggleTheme()">☾ / ☀</button>
+
+</nav>
+</header>
+
+<main>
+
+<!-- HOME PAGE -->
+<section class="hero" id="home">
+
+<div>
+<h1>Style Stitched Just For You!</h1>
+
+<p>
+Welcome to Fashion Tailor. We create beautiful
+custom outfits with elegant designs and perfect
+finishing. Choose your favourite design and
+make your special occasions memorable.
+</p>
+
+<a href="#order" class="btn">Place an Order</a>
+<a href="#gallery" class="btn">View Designs</a>
+</div>
+
+<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1100&q=85"
+alt="Beautiful gown">
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+
+<div class="section-title">
+<h2>About Fashion Tailor</h2>
+<p>Made with care, finished with style.</p>
+</div>
+
+<div class="panel">
+<p>
+Fashion Tailor provides beautiful custom stitching
+and embroidery services. We design fashionable
+blouses, traditional gowns, Chudithar and party wear
+according to customer requirements.
+
+Our aim is to provide elegant designs, quality
+stitching and customer satisfaction.
+</p>
+</div>
+
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+
+<div class="section-title">
+<h2>Our Tailoring Services</h2>
+<p>Choose your favourite design.</p>
+</div>
+
+<div class="grid">
+
+<div class="service">
+<h3>Fashion Blouse</h3>
+<p>Beautiful blouse designs with customised neck
+and sleeve patterns.</p>
+</div>
+
+<div class="service">
+<h3>Chudithar</h3>
+<p>Comfortable and stylish Chudithar stitching.</p>
+</div>
+
+<div class="service">
+<h3>Gown</h3>
+<p>Elegant gowns for parties and special occasions.</p>
+</div>
+
+<div class="service">
+<h3>Traditional Gown</h3>
+<p>Traditional gowns with beautiful finishing.</p>
+</div>
+
+<div class="service">
+<h3>Aari Work Blouse</h3>
+<p>Decorative Aari work blouse designs.</p>
+</div>
+
+<div class="service">
+<h3>Embroidery Blouse</h3>
+<p>Beautiful embroidery and customised designs.</p>
+</div>
+
+</div>
+</section>
+
+<!-- DRESS GALLERY -->
+<section id="gallery">
+
+<div class="section-title">
+<h2>Stitched Dresses & Gown Gallery</h2>
+<p>Explore our traditional and modern dress inspiration.</p>
+</div>
+
+<div class="grid">
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=85" alt="Traditional dress">
+<div><h3>Traditional Elegance</h3><p>Festive traditional outfit.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=85" alt="Elegant gown">
+<div><h3>Elegant Gown</h3><p>Graceful occasion gown.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1596783074918-c84cb06531ca?auto=format&fit=crop&w=900&q=85" alt="Embroidered dress">
+<div><h3>Detailed Occasion Wear</h3><p>Decorative dress inspiration.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1585487000160-6ebcfcev7f3?auto=format&fit=crop&w=900&q=85" alt="Festive dress">
+<div><h3>Festive Stitched Dress</h3><p>Custom celebration outfit.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=900&q=85" alt="Long dress">
+<div><h3>Flowing Long Dress</h3><p>Graceful long dress inspiration.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1594552072238-b8a33785b1cd?auto=format&fit=crop&w=900&q=85" alt="Traditional stitched dress">
+<div><h3>Traditional Stitch Design</h3><p>Personalised traditional look.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=900&q=85" alt="Party dress">
+<div><h3>Stitched Party Dress</h3><p>Modern party dress inspiration.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85" alt="Tailored dress">
+<div><h3>Elegant Tailored Style</h3><p>Custom stitched outfit.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1566206091558-7f218b696731?auto=format&fit=crop&w=900&q=85" alt="Long gown">
+<div><h3>Long Flowing Dress</h3><p>Special occasion gown.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=85" alt="Pink gown">
+<div><h3>Pink Occasion Gown</h3><p>Elegant celebration style.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=85" alt="Custom outfit">
+<div><h3>Elegant Custom Outfit</h3><p>Personalised outfit inspiration.</p></div>
+</article>
+
+<article class="dress">
+<img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=900&q=85" alt="Festive outfit">
+<div><h3>Festive Traditional Look</h3><p>Traditional occasion wear.</p></div>
+</article>
+
+</div>
+
+<p class="note">
+Gallery photos are design inspiration only.
+</p>
+
+</section>
+
+<!-- ONLINE ORDER -->
+<section id="order">
+
+<div class="section-title">
+<h2>Online Order Requirement</h2>
+<p>Share your custom stitching requirements.</p>
+</div>
+
+<div class="panel">
+
+<form id="orderForm">
+
+<div class="two">
+
+<div>
+
+<div class="field">
+<label>Customer Name *</label>
+<input name="name" required>
+</div>
+
+<div class="field">
+<label>Contact Number *</label>
+<input name="phone" type="tel" required>
+</div>
+
+<div class="field">
+<label>Email Address</label>
+<input name="email" type="email">
+</div>
+
+<div class="field">
+<label>Dress Required *</label>
+<select name="item" required>
+<option value="">Select Dress</option>
+<option>Fashion Blouse</option>
+<option>Chudithar</option>
+<option>Gown</option>
+<option>Traditional Gown</option>
+<option>Aari Work Blouse</option>
+<option>Embroidery Blouse</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="field">
+<label>Quantity</label>
+<input name="quantity" type="number" min="1" value="1">
+</div>
+
+<div class="field">
+<label>Required Delivery Date</label>
+<input name="date" type="date">
+</div>
+
+</div>
+
+<div>
+
+<div class="field">
+<label>Design Requirements *</label>
+<textarea name="design" required
+placeholder="Describe your design, colour and fabric"></textarea>
+</div>
+
+<div class="field">
+<label>Measurements</label>
+<textarea name="measurements"
+placeholder="Enter measurements or fitting notes"></textarea>
+</div>
+
+<div class="field">
+<label>Delivery Address *</label>
+<textarea name="address" required></textarea>
+</div>
+
+<div class="field">
+<label>Payment Mode</label>
+<select name="payment">
+<option>Discuss with tailor</option>
+<option>UPI</option>
+<option>Cash</option>
+<option>Bank Transfer</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="field">
+<label>Transaction Reference</label>
+<input name="transaction"
+placeholder="Optional reference number">
+</div>
+
+</div>
+</div>
+
+<p class="note">
+Never enter your UPI PIN, bank password or card details.
+</p>
+
+<button type="submit">Send Order Enquiry</button>
+
+<p class="form-msg" id="orderMsg"></p>
+
+</form>
+</div>
+</section>
+
+<!-- LOGIN AND REGISTRATION -->
+<section id="account">
+
+<div class="section-title">
+<h2>Login / Registration</h2>
+<p>Create your customer account.</p>
+</div>
+
+<div class="two">
+
+<div class="panel">
+<h3>Create Account</h3>
+
+<form id="registerForm">
+
+<div class="field">
+<label>Username</label>
+<input id="regUser" required minlength="3">
+</div>
+
+<div class="field">
+<label>Password</label>
+<input id="regPass" type="password"
+required minlength="6">
+</div>
+
+<button type="submit">Register</button>
+<p id="regMsg" class="form-msg"></p>
+
+</form>
+</div>
+
+<div class="panel">
+<h3>Customer Login</h3>
+
+<form id="loginForm">
+
+<div class="field">
+<label>Username</label>
+<input id="loginUser" required>
+</div>
+
+<div class="field">
+<label>Password</label>
+<input id="loginPass" type="password" required>
+</div>
+
+<button type="submit">Login</button>
+<p id="loginMsg" class="form-msg"></p>
+
+</form>
+
+<p class="note">
+Demo login only. A real website needs secure
+server-side authentication.
+</p>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+
+<div class="section-title">
+<h2>Contact Fashion Tailor</h2>
+<p>We are happy to hear from you!</p>
+</div>
+
+<div class="panel">
+
+<p><b>Phone:</b>
+<a href="tel:+917094917149">+91 70949 17149</a></p>
+
+<p><b>Email:</b>
+<a href="mailto:fashiontailor70@gmail.com">
+fashiontailor70@gmail.com</a></p>
+
+<form id="contactForm">
+
+<div class="field">
+<label>Your Name</label>
+<input id="enqName" required>
+</div>
+
+<div class="field">
+<label>Your Email</label>
+<input id="enqEmail" type="email" required>
+</div>
+
+<div class="field">
+<label>Your Enquiry</label>
+<textarea id="enqMessage" required></textarea>
+</div>
+
+<button type="submit">Send Enquiry</button>
+
+</form>
+</div>
+</section>
+
+</main>
+
+<footer>
+© <span id="year"></span> Fashion Tailor.
+All Rights Reserved.
+<br>
+Custom Blouses • Chudithar • Gowns • Aari Work
+</footer>
+
+<script>
+
+const SHOP_EMAIL = "fashiontailor70@gmail.com";
+
+// LIGHT AND DARK MODE
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "ftTheme",
+    document.body.classList.contains("dark")
+      ? "dark" : "light"
+  );
+}
+
+if (localStorage.getItem("ftTheme") === "dark") {
+  document.body.classList.add("dark");
+}
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+// EMAIL FUNCTION
+function emailShop(subject, body) {
+
+  const url =
+    "mailto:" + SHOP_EMAIL +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+
+  window.location.href = url;
+}
+
+// ONLINE ORDER FORM
+document.getElementById("orderForm")
+.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const f = new FormData(e.target);
+
+  const body = [
+    "CUSTOM ORDER ENQUIRY",
+    "Name: " + f.get("name"),
+    "Phone: " + f.get("phone"),
+    "Email: " + f.get("email"),
+    "Service: " + f.get("item"),
+    "Quantity: " + f.get("quantity"),
+    "Delivery Date: " + f.get("date"),
+    "Design: " + f.get("design"),
+    "Measurements: " + f.get("measurements"),
+    "Address: " + f.get("address"),
+    "Payment: " + f.get("payment"),
+    "Transaction: " + f.get("transaction")
+  ].join("\n");
+
+  document.getElementById("orderMsg").textContent =
+    "Opening your email application. Please review and send.";
+
+  emailShop("Fashion Tailor - Order Enquiry", body);
+
+});
+
+// CONTACT ENQUIRY
+document.getElementById("contactForm")
+.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const body =
+    "Name: " + document.getElementById("enqName").value +
+    "\nEmail: " + document.getElementById("enqEmail").value +
+    "\nMessage: " + document.getElementById("enqMessage").value;
+
+  emailShop("Fashion Tailor - Website Enquiry", body);
+
+});
+
+// DEMO REGISTRATION
+function getUsers() {
+  try {
+    return JSON.parse(localStorage.getItem("ftUsers") || "{}");
+  } catch {
+    return {};
+  }
+}
+
+document.getElementById("registerForm")
+.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const username =
+    document.getElementById("regUser").value.trim();
+
+  const password =
+    document.getElementById("regPass").value;
+
+  const users = getUsers();
+
+  if (users[username]) {
+    document.getElementById("regMsg").textContent =
+      "Username already exists.";
+    return;
+  }
+
+  users[username] = password;
+
+  localStorage.setItem("ftUsers", JSON.stringify(users));
+
+  document.getElementById("regMsg").textContent =
+    "Registration successful! You can now login.";
+
+  e.target.reset();
+
+});
+
+// DEMO LOGIN
+document.getElementById("loginForm")
+.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const username =
+    document.getElementById("loginUser").value.trim();
+
+  const password =
+    document.getElementById("loginPass").value;
+
+  const users = getUsers();
+
+  document.getElementById("loginMsg").textContent =
+    users[username] === password
+      ? "Login successful! Welcome " + username
+      : "Invalid username or password.";
+
+});
+
+</script>
+
+</body>
+</html>
